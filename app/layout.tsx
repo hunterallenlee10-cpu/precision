@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Archivo, IBM_Plex_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { PlannerProvider } from "@/components/ProjectPlanner/PlannerContext";
+import { MobileBar } from "@/components/MobileBar";
+import { BackToTop } from "@/components/BackToTop";
 import { IS_LIVE, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -38,8 +40,12 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${archivo.variable} ${plex.variable}`}>
-      <body>
-        <PlannerProvider>{children}</PlannerProvider>
+      <body id="top">
+        <PlannerProvider>
+          {children}
+          <MobileBar />
+          <BackToTop />
+        </PlannerProvider>
         {process.env.VERCEL ? <Analytics /> : null}
       </body>
     </html>
