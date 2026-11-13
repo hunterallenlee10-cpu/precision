@@ -3,6 +3,8 @@ import { Hero } from "@/components/sections/Hero";
 import { Footer } from "@/components/sections/Footer";
 import { WhoWeWorkFor } from "@/components/sections/WhoWeWorkFor";
 import { HowWeBuild } from "@/components/sections/HowWeBuild";
+import { Services } from "@/components/sections/Services";
+import { OurWork } from "@/components/sections/OurWork";
 
 export default function Home() {
   return (
@@ -15,6 +17,8 @@ export default function Home() {
         <Hero />
         <WhoWeWorkFor />
         <HowWeBuild />
+        <Services />
+        <OurWork />
       </main>
       <Footer />
     </>

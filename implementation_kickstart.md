@@ -36,7 +36,7 @@ Direction: **"Blue Tape"**. The site looks like a finish job at layout stage: pr
 
 - [x] Phase 1: scaffold, design tokens, fonts, tape strip component, nav, hero with the tape-off, footer
 - [x] Phase 2: Who we work for, Tape. Frame. Finish. (C.H.A.P. source cited in a comment)
-- [ ] Phase 3: services bento, gallery with filters, three showers set, lightbox
+- [x] Phase 3: services bento, gallery with filters, three showers set, lightbox
 - [ ] Phase 4: licence and proof, how it works, quote band, reviews, FAQ, final call-to-action
 - [ ] Phase 5: Project Planner modal with pre-selects, prefilled SMS, mobile sticky bar, `/contact`
 - [ ] Phase 6: launch switch, titles and descriptions, single h1, JSON-LD, robots, sitemap, `llms.txt`, OG image, favicon, 404, `SEO-LAUNCH.md`
