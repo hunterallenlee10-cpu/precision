@@ -6,7 +6,13 @@ export const SITE_MODE: "demo" | "live" =
 
 export const IS_LIVE = SITE_MODE === "live";
 
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/+$/, "");
+// Falls back to the Vercel production domain, so a demo deploy gets working absolute URLs
+// (canonical, Open Graph image) without any setup, then to localhost.
+export const SITE_URL = (
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "") ||
+  "http://localhost:3000"
+).replace(/\/+$/, "");
 
 export const absoluteUrl = (path = "/") => `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
 
