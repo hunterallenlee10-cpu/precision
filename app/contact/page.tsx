@@ -9,19 +9,14 @@ import { Tape, Ticks } from "@/components/Tape";
 import { JsonLd } from "@/components/JsonLd";
 import { business } from "@/lib/business";
 import { contactJsonLd } from "@/lib/schema";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Contact Precision Home Services | Pasadena, MD Remodeling",
   description:
     "Call, text or send your project to Precision Home Services in Pasadena, MD. Free estimates on remodeling and repairs, with a reply within one business day.",
-  alternates: { canonical: "/contact" },
-  openGraph: {
-    title: "Contact Precision Home Services | Pasadena, MD Remodeling",
-    description:
-      "Call, text or send your project to Precision Home Services in Pasadena, MD. Free estimates on remodeling and repairs, with a reply within one business day.",
-    url: "/contact",
-  },
-};
+  path: "/contact",
+});
 
 const tiles = [
   { href: business.telHref, Icon: Phone, label: "Call", value: business.phoneDisplay, note: "Talk it through." },
@@ -47,7 +42,7 @@ export default function ContactPage() {
               <span className="flex items-start gap-3 text-[12px] font-semibold uppercase leading-[1.6] tracking-[0.13em]">
                 <span aria-hidden="true" className="mt-[5px] h-[10px] w-[18px] shrink-0 bg-tape" />
                 <span>Contact Precision Home Services, home remodeling in Pasadena, MD</span>
-              </span>
+              </span>{" "}
               <span className="display mt-5 block text-[42px] sm:text-[64px] lg:text-[80px]">Tell us about the project.</span>
             </h1>
             <p className="mt-5 max-w-[48ch] text-[18px] leading-[1.6] text-muted">

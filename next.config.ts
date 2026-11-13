@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
-  // @ts-expect-error: Next 16 option that stops it writing an AGENTS.md into the repo.
+  // Stops Next writing an AGENTS.md into the repo.
   agentRules: false,
   images: {
     formats: ["image/avif", "image/webp"],

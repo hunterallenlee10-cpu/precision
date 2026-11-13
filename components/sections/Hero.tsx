@@ -21,9 +21,9 @@ export function Hero() {
                 <span aria-hidden="true" className="hidden xl:inline"> · </span>{" "}
                 <span className="block whitespace-nowrap xl:inline">Serving Maryland</span>
               </span>
-            </span>
+            </span>{" "}
             <span className="display mt-4 block text-[42px] sm:mt-6 sm:text-[64px] lg:text-[60px] xl:text-[72px]">
-              <span className="block">Built with precision.</span>
+              <span className="block">Built with precision.</span>{" "}
               <span className="mt-1 block sm:mt-2">Finished with pride.</span>
             </span>
           </h1>
