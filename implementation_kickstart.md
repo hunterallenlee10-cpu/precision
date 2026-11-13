@@ -5,8 +5,8 @@ Direction: **"Blue Tape"**. The site looks like a finish job at layout stage: pr
 
 ## Plan
 
-- Next.js (App Router) + TypeScript + Tailwind CSS v4. `lucide-react` icons. Framer Motion only inside `components/BuildStages/`.
-- The hero tape-off is CSS keyframes (no JS needed), so it starts on first paint, never waits for hydration and adds nothing to the bundle. Still only one of the two motion sections.
+- Next.js (App Router) + TypeScript + Tailwind CSS v4. `lucide-react` icons.
+- Motion in two places only: the hero tape-off and the build stages tool. Both are CSS (keyframes and an opacity cross-fade). Framer Motion was used for the stages tool at first, then removed in phase 6b: it cost about 40 KB of JS and pushed mobile Performance under 90.
 - One component per section in `components/sections/`. Planner in `components/ProjectPlanner/`, stages tool in `components/BuildStages/`. No file over 500 lines.
 - Facts in `lib/business.ts`, services in `lib/services.ts`, gallery in `lib/gallery.ts`, photo metadata (size + alt) in `lib/photos.ts`.
 - Images: `scripts/process-images.mjs` (sharp) turns `public/images/raw/*` into `public/images/*.webp` with the TV screens covered on 08 and 09 and the crops on 08 and 15. Rendered via `next/image` with explicit width and height and a `max-width` equal to native width.
@@ -41,20 +41,20 @@ Direction: **"Blue Tape"**. The site looks like a finish job at layout stage: pr
 - [x] Phase 5: Project Planner modal with pre-selects, prefilled SMS, mobile sticky bar, `/contact`
 - [x] Phase 6: launch switch, titles and descriptions, single h1, JSON-LD, robots, sitemap, `llms.txt`, OG image, favicon, 404, `SEO-LAUNCH.md`
 - [x] Phase 6b: Lighthouse on a production build, both modes, mobile and desktop
-- [ ] Phase 7: final review, commit, ready for GitHub and Vercel
+- [x] Phase 7: final review, commit, ready for GitHub and Vercel
 
 ## Final review checklist
 
-- [ ] The hero alone would sell the job. Tape-off plays once. At 375px the headline and primary button show without scrolling.
-- [ ] Tape. Frame. Finish. steps 06, 07, 08 in order, auto-plays once, works with mouse, touch, keyboard.
-- [ ] C.H.A.P. wording sourced in a code comment with the "general guide" line. Licence link goes to the State of Maryland.
-- [ ] Every "Get My Free Estimate" opens the Planner with the right pre-selects. Phone, text, directions links work.
-- [ ] Every "things only this business has" item is on the page.
-- [ ] Zero em dashes, zero "--", zero stock or AI images, zero invented facts. No photo larger than native. TV screens in 08 and 09 covered.
-- [ ] Sample reviews, Josh H review, hours, guarantee and other draft copy labelled or commented.
-- [ ] Max 2 fonts, 3 colours plus text, motion in 2 sections only. Accent never text on light.
-- [ ] 375px: no overflow, burger works, sticky call / text / estimate bar works.
-- [ ] Footer on both pages with concept line in demo mode. Demo = noindex, nofollow. Live = index, follow, sitemap, no concept line.
-- [ ] OG image and favicon are his.
-- [ ] Lighthouse SEO 100 live mode. Perf, A11y, BP 90+. Demo: only the indexing audit fails.
-- [ ] One h1 per page with service and town. Unique titles and descriptions. JSON-LD valid and true.
+- [x] The hero alone would sell the job. Tape-off plays once. At 375px the headline and primary button show without scrolling.
+- [x] Tape. Frame. Finish. steps 06, 07, 08 in order, auto-plays once, works with mouse, touch, keyboard.
+- [x] C.H.A.P. wording sourced in a code comment with the "general guide" line. Licence link goes to the State of Maryland.
+- [x] Every "Get My Free Estimate" opens the Planner with the right pre-selects. Phone, text, directions links work.
+- [x] Every "things only this business has" item is on the page.
+- [x] Zero em dashes, zero "--", zero stock or AI images, zero invented facts. No photo larger than native. TV screens in 08 and 09 covered.
+- [x] Sample reviews, Josh H review, hours, guarantee and other draft copy labelled or commented.
+- [x] Max 2 fonts, 3 colours plus text, motion in 2 sections only. Accent never text on light.
+- [x] 375px: no overflow, burger works, sticky call / text / estimate bar works.
+- [x] Footer on both pages with concept line in demo mode. Demo = noindex, nofollow. Live = index, follow, sitemap, no concept line.
+- [x] OG image and favicon are his.
+- [x] Lighthouse SEO 100 live mode. Perf, A11y, BP 90+. Demo: only the indexing audit fails.
+- [x] One h1 per page with service and town. Unique titles and descriptions. JSON-LD valid and true.
