@@ -1,6 +1,5 @@
 "use client";
 
-import { AnimatePresence, LazyMotion, domAnimation, m, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { business } from "@/lib/business";
@@ -12,8 +11,21 @@ import { stages } from "./stages";
 const LAST = stages.length - 1;
 const STEP_MS = 1400;
 
+function usePrefersReducedMotion() {
+  const [reduce, setReduce] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReduce(mq.matches);
+    const on = () => setReduce(mq.matches);
+    mq.addEventListener("change", on);
+    return () => mq.removeEventListener("change", on);
+  }, []);
+  return reduce;
+}
+
+// Motion here is plain CSS (opacity cross-fade, 350ms) so the tool adds no animation library to the page.
 export function BuildStages() {
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
   // Server render and reduced motion: rest on the finished wall.
   const [stage, setStage] = useState(LAST);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -27,7 +39,8 @@ export function BuildStages() {
 
   // Auto-play once, 1 to 2 to 3, the first time the tool scrolls into view.
   useEffect(() => {
-    if (reduce || played.current) return;
+    if (played.current) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const el = rootRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
@@ -49,7 +62,7 @@ export function BuildStages() {
       io.disconnect();
       stopAuto();
     };
-  }, [reduce]);
+  }, []);
 
   const go = (i: number) => {
     played.current = true;
@@ -61,19 +74,17 @@ export function BuildStages() {
   const pct = (stage / LAST) * 100;
 
   return (
-    <LazyMotion features={domAnimation} strict>
-      <div ref={rootRef} className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
+    <div ref={rootRef} className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
         {/* Photo frame, fixed 3:4, no wider than 520px. */}
         <div className="lg:col-span-6">
           <div className="relative mx-auto w-full max-w-[520px]">
             <div className="relative aspect-[3/4] overflow-hidden rounded-[2px] border border-line bg-white">
               {stages.map((st, i) => (
-                <m.div
+                <div
                   key={st.n}
-                  className="absolute inset-0"
-                  initial={false}
-                  animate={{ opacity: i === stage ? 1 : 0 }}
-                  transition={{ duration: reduce ? 0 : 0.35, ease: "easeOut" }}
+                  className={`absolute inset-0 transition-opacity ease-out ${reduce ? "duration-0" : "duration-[350ms]"} ${
+                    i === stage ? "opacity-100" : "opacity-0"
+                  }`}
                   aria-hidden={i !== stage}
                 >
                   <Image
@@ -84,7 +95,7 @@ export function BuildStages() {
                     className="object-cover"
                     style={{ objectPosition: st.position }}
                   />
-                </m.div>
+                </div>
               ))}
             </div>
             <CornerTape corner="tl" length={120} />
@@ -100,15 +111,7 @@ export function BuildStages() {
         {/* Readout and control. */}
         <div className="lg:col-span-6 lg:pl-4">
           <div aria-live="polite" className="min-h-[150px] sm:min-h-[118px]">
-            <AnimatePresence mode="wait" initial={false}>
-              <m.div
-                key={s.n}
-                initial={reduce ? false : { opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={reduce ? undefined : { opacity: 0, y: -6 }}
-                transition={{ duration: 0.2 }}
-                className="flex items-start gap-5"
-              >
+            <div key={s.n} className="stage-readout flex items-start gap-5">
                 {/* The number sits on tape: the accent is never text on a light surface. */}
                 <span className="tape display flex h-[76px] min-w-[76px] items-center justify-center px-3 text-[52px] leading-none">
                   {s.n}
@@ -117,8 +120,7 @@ export function BuildStages() {
                   <p className="display text-[30px] sm:text-[36px]">{s.name}</p>
                   <p className="mt-2 max-w-[40ch] text-[18px] leading-[1.55]">{s.line}</p>
                 </div>
-              </m.div>
-            </AnimatePresence>
+            </div>
           </div>
 
           <div className="mt-6">
@@ -166,7 +168,6 @@ export function BuildStages() {
 
           <EstimateButton label="Plan a built-in like this" project="builtins" className="mt-8 w-full sm:w-auto" />
         </div>
-      </div>
-    </LazyMotion>
+    </div>
   );
 }

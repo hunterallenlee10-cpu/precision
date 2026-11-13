@@ -517,3 +517,7 @@
 .planner-backdrop {
   animation: fade-in 160ms ease-out both;
 }
+
+.stage-readout {
+  animation: planner-in 200ms ease-out both;
+}

@@ -20,6 +20,9 @@ const plex = IBM_Plex_Sans({
   weight: ["400", "500", "600"],
   variable: "--font-plex",
   display: "swap",
+  // Body text swaps in when ready; not preloaded so the hero photo gets the bandwidth first.
+  preload: false,
+  adjustFontFallback: true,
 });
 
 export const metadata: Metadata = {
